@@ -37,6 +37,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
@@ -50,6 +53,10 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return email; // for auth
+    }
+
+    public String getName() {
+        return username;
     }
 
     @Override

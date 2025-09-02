@@ -16,14 +16,8 @@ public class GlobalExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(PostNotFoundException.class)
-    public BaseResponse<Void> handlePostNotFoundException(PostNotFoundException ex) {
-        return new BaseResponse<>(ex.getMessage());
-    }
-
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(UserNotFoundException.class)
-    public BaseResponse<Void> handleUserNotFoundException(UserNotFoundException ex) {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public BaseResponse<Void> handleResourceNotFoundException(ResourceNotFoundException ex) {
         return new BaseResponse<>(ex.getMessage());
     }
 

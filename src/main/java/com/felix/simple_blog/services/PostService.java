@@ -2,8 +2,7 @@ package com.felix.simple_blog.services;
 
 import com.felix.simple_blog.entities.Post;
 import com.felix.simple_blog.entities.User;
-import com.felix.simple_blog.exception.PostNotFoundException;
-import com.felix.simple_blog.exception.UserNotFoundException;
+import com.felix.simple_blog.exception.ResourceNotFoundException;
 import com.felix.simple_blog.repositories.PostRepository;
 import com.felix.simple_blog.repositories.UserRepository;
 import com.felix.simple_blog.entities.dto.PostRequest;
@@ -53,7 +52,7 @@ public class PostService {
     public PostResponse getPostById(Long id) {
         final Optional<Post> postOpt = postRepository.findById(id);
         if (postOpt.isEmpty()) {
-            throw new PostNotFoundException(id);
+            throw new ResourceNotFoundException("Post with id " + id + " not found");
         }
 
         return toPostResponse(postOpt.get());
@@ -79,7 +78,7 @@ public class PostService {
     private User findUserByEmail(String email) {
         Optional<User> userOpt = userRepository.findByEmail(email);
         if (userOpt.isEmpty()) {
-            throw new UserNotFoundException(email);
+            throw new ResourceNotFoundException("User " + email + " not found");
         }
 
         return userOpt.get();
@@ -89,7 +88,7 @@ public class PostService {
         final Optional<Post> post = this.postRepository.findByIdAndUserEmail(postId, userEmail);
 
         if (post.isEmpty()) {
-            throw new PostNotFoundException(postId);
+            throw new ResourceNotFoundException("Post with id " + postId + " not found");
         }
 
         return post.get();
